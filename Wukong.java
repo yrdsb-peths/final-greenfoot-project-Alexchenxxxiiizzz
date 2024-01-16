@@ -12,21 +12,26 @@ public class Wukong extends Actor {
     private int frameCounter = 0;
 
     public Wukong() {
-        walkingImages = new GreenfootImage[5];
-        for (int i = 0; i < walkingImages.length; i++) {
-            walkingImages[i] = new GreenfootImage("wukong_walk/walk" + (i + 1) + ".png");
-        }
-        setImage(walkingImages[0]);
+    walkingImages = new GreenfootImage[5];
+    String folderPath = "walking/"; // Your folder path
+
+    for (int i = 0; i < walkingImages.length; i++) {
+        String imagePath = folderPath + "walking" + (i + 1) + ".png";
+        walkingImages[i] = new GreenfootImage(imagePath);
+        System.out.println("Loaded image: " + imagePath);
     }
+
+    setImage(walkingImages[0]);
+}
 
     public void act() {
         updateWalkingAnimation();
-        handleMovement();  // Add method for handling movement
-        handleJump();      // Add method for handling jump
+        handleMovement();
+        handleJump();
     }
 
     private void updateWalkingAnimation() {
-        if (frameCounter % 10 == 0) { 
+        if (frameCounter % 10 == 0) {
             imageIndex = (imageIndex + 1) % walkingImages.length;
             setImage(walkingImages[imageIndex]);
         }
@@ -35,10 +40,10 @@ public class Wukong extends Actor {
 
     private void handleMovement() {
         if (Greenfoot.isKeyDown("left")) {
-            move(-5);  // Move left by 5 pixels
+            move(-5); // Move left by 5 pixels
         }
         if (Greenfoot.isKeyDown("right")) {
-            move(5);   // Move right by 5 pixels
+            move(5); // Move right by 5 pixels
         }
     }
 
