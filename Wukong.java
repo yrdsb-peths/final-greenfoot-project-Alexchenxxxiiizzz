@@ -13,10 +13,10 @@ public class Wukong extends Actor {
 
     public Wukong() {
     walkingImages = new GreenfootImage[5];
-    String folderPath = "walking/"; // Your folder path
+    String folderPath = "images/walking/"; // Your folder path
 
     for (int i = 0; i < walkingImages.length; i++) {
-        String imagePath = folderPath + "walking" + (i + 1) + ".png";
+        String imagePath = folderPath + "walk" + (i + 1) + ".png";
         walkingImages[i] = new GreenfootImage(imagePath);
         System.out.println("Loaded image: " + imagePath);
     }
