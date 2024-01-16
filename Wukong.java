@@ -14,7 +14,7 @@ public class Wukong extends Actor {
     public Wukong() {
         walkingImages = new GreenfootImage[5];
         for (int i = 0; i < walkingImages.length; i++) {
-            walkingImages[i] = new GreenfootImage("Wukong_walk/walk" + (i + 1) + ".png");
+            walkingImages[i] = new GreenfootImage("wukong_walk/walk" + (i + 1) + ".png");
         }
         setImage(walkingImages[0]);
     }
