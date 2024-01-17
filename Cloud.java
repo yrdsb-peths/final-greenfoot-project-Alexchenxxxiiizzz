@@ -7,9 +7,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class Cloud extends Actor {
-    private static final int POINTS_PER_CLOUD = 5;
+    private static final int POINTS_PER_CLOUD = 4;
     private static final int INCREASE_DIFFICULTY_SCORE = 60;
-    private static final int WINNING_SCORE = 100;
+    private static final int WINNING_SCORE = 120;
     private boolean touchedByWukong = false;
 
     public Cloud() {
@@ -21,6 +21,7 @@ public class Cloud extends Actor {
         moveCloud();
         checkBounds();
         increaseDifficultyIfNeeded();
+        checkForWinning(); // Check if winning conditions are met
     }
 
     private void checkIfTouchedByWukong() {
@@ -34,7 +35,7 @@ public class Cloud extends Actor {
 
     private void moveCloud() {
         // Adjust the speed or pattern of the cloud's movement here
-        setLocation(getX(), getY() + 1); // Simple downward movement
+        setLocation(getX(), getY() + 3); // Simple downward movement
     }
 
     private void checkBounds() {
@@ -53,7 +54,6 @@ public class Cloud extends Actor {
         }
     }
 
-    // Optional: Add a method to check for winning conditions
     private void checkForWinning() {
         MyWorld world = (MyWorld) getWorld();
         int currentScore = world.getScoreBoard().getScore();
