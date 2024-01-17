@@ -7,41 +7,55 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class Cloud extends Actor {
-    private int dx; // Horizontal speed
-    private int dy; // Vertical speed
+    private static final int POINTS_PER_CLOUD = 5;
+    private static final int INCREASE_DIFFICULTY_SCORE = 60;
+    private static final int WINNING_SCORE = 100;
+    private boolean touchedByWukong = false;
 
     public Cloud() {
-        setImage("Cloud.png"); // Set the image of the cloud
-
-        dx = Greenfoot.getRandomNumber(3) - 1; // Random horizontal speed (-1, 0, 1)
-        dy = Greenfoot.getRandomNumber(2); // Vertical speed (0 or 1)
+        setImage("Cloud.png"); // Set the cloud image
     }
 
     public void act() {
-        // Cloud movement logic
-        moveHorizontal();
+        checkIfTouchedByWukong();
         moveDown();
-
-        // Check if the cloud has reached the edge of the screen
         checkBounds();
     }
 
-    private void moveHorizontal() {
-        setLocation(getX() + dx, getY());
+    private void checkIfTouchedByWukong() {
+        if (isTouching(Wukong.class) && !touchedByWukong) {
+            touchedByWukong = true;
+            MyWorld world = (MyWorld) getWorld();
+            world.getScoreBoard().addScore(POINTS_PER_CLOUD);
+            increaseDifficultyIfNeeded(world);
+            checkForWinning(world);
+        }
     }
 
     private void moveDown() {
-        setLocation(getX(), getY() + dy);
+        // You can adjust the speed or pattern of the cloud's movement here
+        setLocation(getX(), getY() + 1); // Simple downward movement
     }
 
     private void checkBounds() {
         World world = getWorld();
-        if (getX() < 0 || getX() > world.getWidth()) {
-            dx = -dx; // Reverse direction horizontally
-        }
         if (getY() > world.getHeight()) {
-            // If the cloud reaches the bottom, reposition it at the top
-            setLocation(Greenfoot.getRandomNumber(world.getWidth()), 0);
+            world.removeObject(this); // Remove the cloud if it goes off-screen
+        }
+    }
+
+    private void increaseDifficultyIfNeeded(MyWorld world) {
+        int currentScore = world.getScoreBoard().getScore();
+        if (currentScore >= INCREASE_DIFFICULTY_SCORE) {
+            // Increase difficulty, e.g., by increasing cloud movement speed
+        }
+    }
+
+    private void checkForWinning(MyWorld world) {
+        int currentScore = world.getScoreBoard().getScore();
+        if (currentScore >= WINNING_SCORE) {
+            // Implement the winning logic, e.g., show a winning screen or stop the game
+            Greenfoot.stop(); // Example: stop the game
         }
     }
 }

@@ -8,9 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MyWorld extends World {
     private int cloudTimer = 0;
+    private ScoreBoard scoreBoard; // Declare the ScoreBoard
 
     public MyWorld() {    
         super(700, 500, 1);  
+        scoreBoard = new ScoreBoard(); // Initialize the ScoreBoard
+        addObject(scoreBoard, 350, 25); // Add ScoreBoard to the world at the top center
+
         addClouds(5); // Initially add some clouds
         addWukong();  // Add Wukong to the world
     }
@@ -36,6 +40,12 @@ public class MyWorld extends World {
     }
 
     private void addWukong() {
-        Wukong wukong = new Wukong(); 
+        Wukong wukong = new Wukong();
+        addObject(wukong, getWidth() / 2, getHeight() - 30); // Position Wukong at the bottom center
+    }
+
+    // Method to get the ScoreBoard
+    public ScoreBoard getScoreBoard() {
+        return scoreBoard;
     }
 }
