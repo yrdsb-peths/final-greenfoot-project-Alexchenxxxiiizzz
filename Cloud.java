@@ -18,8 +18,9 @@ public class Cloud extends Actor {
 
     public void act() {
         checkIfTouchedByWukong();
-        moveDown();
+        moveCloud();
         checkBounds();
+        increaseDifficultyIfNeeded();
     }
 
     private void checkIfTouchedByWukong() {
@@ -27,13 +28,12 @@ public class Cloud extends Actor {
             touchedByWukong = true;
             MyWorld world = (MyWorld) getWorld();
             world.getScoreBoard().addScore(POINTS_PER_CLOUD);
-            increaseDifficultyIfNeeded(world);
-            checkForWinning(world);
+            // Other actions when Wukong touches the cloud
         }
     }
 
-    private void moveDown() {
-        // You can adjust the speed or pattern of the cloud's movement here
+    private void moveCloud() {
+        // Adjust the speed or pattern of the cloud's movement here
         setLocation(getX(), getY() + 1); // Simple downward movement
     }
 
@@ -44,17 +44,21 @@ public class Cloud extends Actor {
         }
     }
 
-    private void increaseDifficultyIfNeeded(MyWorld world) {
+    private void increaseDifficultyIfNeeded() {
+        MyWorld world = (MyWorld) getWorld();
         int currentScore = world.getScoreBoard().getScore();
         if (currentScore >= INCREASE_DIFFICULTY_SCORE) {
             // Increase difficulty, e.g., by increasing cloud movement speed
+            // This can be done by adjusting the parameters in the moveCloud method
         }
     }
 
-    private void checkForWinning(MyWorld world) {
+    // Optional: Add a method to check for winning conditions
+    private void checkForWinning() {
+        MyWorld world = (MyWorld) getWorld();
         int currentScore = world.getScoreBoard().getScore();
         if (currentScore >= WINNING_SCORE) {
-            // Implement the winning logic, e.g., show a winning screen or stop the game
+            // Implement the winning logic, e.g., show a winning screen
             Greenfoot.stop(); // Example: stop the game
         }
     }

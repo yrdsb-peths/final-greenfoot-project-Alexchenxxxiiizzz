@@ -11,7 +11,7 @@ public class MyWorld extends World {
     private ScoreBoard scoreBoard; // Declare the ScoreBoard
 
     public MyWorld() {    
-        super(700, 500, 1);  
+        super(800, 600, 1);  
         scoreBoard = new ScoreBoard(); // Initialize the ScoreBoard
         addObject(scoreBoard, 350, 25); // Add ScoreBoard to the world at the top center
 
