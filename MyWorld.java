@@ -8,15 +8,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MyWorld extends World {
     private int cloudTimer = 0;
-    private ScoreBoard scoreBoard; // Declare the ScoreBoard
+    private ScoreBoard scoreBoard;
+    private Wukong wukong;
 
     public MyWorld() {    
         super(800, 600, 1);  
-        scoreBoard = new ScoreBoard(); // Initialize the ScoreBoard
-        addObject(scoreBoard, 350, 25); // Add ScoreBoard to the world at the top center
+        scoreBoard = new ScoreBoard();
+        addObject(scoreBoard, 350, 25);
 
-        addClouds(5); // Initially add some clouds
-        addWukong();  // Add Wukong to the world
+        addClouds(5);
+        addWukong();
     }
 
     public void act() {
@@ -24,6 +25,16 @@ public class MyWorld extends World {
             addCloud();
         }
         cloudTimer++;
+
+        checkWinCondition();
+    }
+
+    private void checkWinCondition() {
+        if (scoreBoard.getScore() >= 80) {
+            Label winLabel = new Label("You Win!", 50); // Assumes a Label class that takes a String and font size
+            addObject(winLabel, getWidth() / 2, getHeight() / 2);
+            Greenfoot.stop(); // Stops the act() loop if the game is won
+        }
     }
 
     private void addClouds(int numberOfClouds) {
@@ -36,16 +47,18 @@ public class MyWorld extends World {
 
     private void addCloud() {
         int x = Greenfoot.getRandomNumber(getWidth());
-        addObject(new Cloud(), x, 0); 
+        addObject(new Cloud(), x, 0);
     }
 
     private void addWukong() {
-        Wukong wukong = new Wukong();
-        addObject(wukong, getWidth() / 2, getHeight() - 30); // Position Wukong at the bottom center
+        wukong = new Wukong();
+        addObject(wukong, getWidth() / 2, getHeight() - 30);
     }
 
-    // Method to get the ScoreBoard
     public ScoreBoard getScoreBoard() {
         return scoreBoard;
     }
 }
+
+
+    

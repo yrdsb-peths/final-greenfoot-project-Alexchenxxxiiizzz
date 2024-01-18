@@ -8,8 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Cloud extends Actor {
     private static final int POINTS_PER_CLOUD = 2;
-    private static final int INCREASE_DIFFICULTY_SCORE = 60;
-    private static final int WINNING_SCORE = 100;
+    private static final int INCREASE_DIFFICULTY_SCORE = 50;
+    private static final int WINNING_SCORE = 80;
     private boolean touchedByWukong = false;
 
     public Cloud() {
