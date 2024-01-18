@@ -7,9 +7,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class Cloud extends Actor {
-    private static final int POINTS_PER_CLOUD = 4;
+    private static final int POINTS_PER_CLOUD = 2;
     private static final int INCREASE_DIFFICULTY_SCORE = 60;
-    private static final int WINNING_SCORE = 120;
+    private static final int WINNING_SCORE = 100;
     private boolean touchedByWukong = false;
 
     public Cloud() {
@@ -18,7 +18,7 @@ public class Cloud extends Actor {
 
     public void act() {
         checkIfTouchedByWukong();
-        moveCloud();
+        moveCloud();  // Cloud movement with increased speed
         checkBounds();
         increaseDifficultyIfNeeded();
         checkForWinning(); // Check if winning conditions are met
@@ -29,13 +29,17 @@ public class Cloud extends Actor {
             touchedByWukong = true;
             MyWorld world = (MyWorld) getWorld();
             world.getScoreBoard().addScore(POINTS_PER_CLOUD);
-            // Other actions when Wukong touches the cloud
+
+            // Make Wukong bounce when he touches the cloud
+            Wukong wukong = (Wukong) getOneIntersectingObject(Wukong.class);
+            if (wukong != null) {
+            
+            }
         }
     }
 
     private void moveCloud() {
-        // Adjust the speed or pattern of the cloud's movement here
-        setLocation(getX(), getY() + 3); // Simple downward movement
+        setLocation(getX(), getY() + 2); // Increased speed for cloud movement
     }
 
     private void checkBounds() {
@@ -49,8 +53,7 @@ public class Cloud extends Actor {
         MyWorld world = (MyWorld) getWorld();
         int currentScore = world.getScoreBoard().getScore();
         if (currentScore >= INCREASE_DIFFICULTY_SCORE) {
-            // Increase difficulty, e.g., by increasing cloud movement speed
-            // This can be done by adjusting the parameters in the moveCloud method
+            // Implement logic to increase difficulty
         }
     }
 

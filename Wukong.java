@@ -1,4 +1,4 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+            import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Write a description of class Wukong here.
@@ -16,7 +16,7 @@ public class Wukong extends Actor {
     private int timeWithoutCloud = 0; // Timer to track the duration without touching a cloud
     private int timeOnTop = 0; // Timer to track the time spent at the top
     private int timeSinceStart = 0; // Timer to track the time since the start of the game
-    private final int TIME_LIMIT = 200; // 3 seconds, assuming 60 frames per second
+    private final int TIME_LIMIT = 150; // 3 seconds, assuming 60 frames per second
     private int imageIndex = 0; // To cycle through walking images
     private int animationCounter = 0; // Counter for controlling the animation speed
     private boolean isInitialized = false; // Flag to ensure initialization occurs only once
@@ -92,7 +92,7 @@ public class Wukong extends Actor {
 
         if (getY() <= 0) {
             timeOnTop++;
-            if (timeOnTop > 5) {
+            if (timeOnTop > 10) {
                 Greenfoot.stop(); // Game over if Wukong stays on top for more than 3 seconds
             }
         } else {

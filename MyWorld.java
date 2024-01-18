@@ -15,12 +15,12 @@ public class MyWorld extends World {
         scoreBoard = new ScoreBoard(); // Initialize the ScoreBoard
         addObject(scoreBoard, 350, 25); // Add ScoreBoard to the world at the top center
 
-        addClouds(3); // Initially add some clouds
+        addClouds(5); // Initially add some clouds
         addWukong();  // Add Wukong to the world
     }
 
     public void act() {
-        if (cloudTimer % 120 == 0) { 
+        if (cloudTimer % 100 == 0) { 
             addCloud();
         }
         cloudTimer++;
