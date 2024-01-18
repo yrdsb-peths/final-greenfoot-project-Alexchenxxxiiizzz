@@ -11,15 +11,13 @@ public class Wukong extends Actor {
     private boolean onCloud = false;
     private int verticalVelocity = 0;
     private final int GRAVITY = 1;
-    private final int JUMP_STRENGTH = -10; // Slower ascent
-    private final int CLOUD_BOUNCE = -5; // Increased bounce effect for a slight jump
-    private int timeWithoutCloud = 0; // Timer to track the duration without touching a cloud
-    private int timeOnTop = 0; // Timer to track the time spent at the top
-    private int timeSinceStart = 0; // Timer to track the time since the start of the game
-    private final int TIME_LIMIT = 150; // 3 seconds, assuming 60 frames per second
-    private int imageIndex = 0; // To cycle through walking images
-    private int animationCounter = 0; // Counter for controlling the animation speed
-    private boolean isInitialized = false; // Flag to ensure initialization occurs only once
+    private final int JUMP_STRENGTH = -10;
+    private final int CLOUD_BOUNCE = -5;
+    private int timeOnTop = 0;
+    private int timeAtBottom = 0;
+    private int imageIndex = 0;
+    private int animationCounter = 0;
+    private boolean isInitialized = false;
 
     public Wukong() {
         walkingImages = new GreenfootImage[5];
@@ -41,7 +39,6 @@ public class Wukong extends Actor {
         if (Greenfoot.isKeyDown("space") && onCloud) {
             verticalVelocity = JUMP_STRENGTH;
             onCloud = false;
-            timeWithoutCloud = 0;
         }
 
         verticalVelocity += GRAVITY;
@@ -50,8 +47,6 @@ public class Wukong extends Actor {
         checkForCloud();
         updateWalkingAnimation();
         checkForLosingConditions();
-
-        timeSinceStart++; // Increase time since start
     }
 
     private void initializePosition() {
@@ -71,7 +66,6 @@ public class Wukong extends Actor {
         if (!onCloud && isTouching(Cloud.class)) {
             onCloud = true;
             verticalVelocity = CLOUD_BOUNCE;
-            timeWithoutCloud = 0;
         } else if (!isTouching(Cloud.class)) {
             onCloud = false;
         }
@@ -86,22 +80,24 @@ public class Wukong extends Actor {
     }
 
     private void checkForLosingConditions() {
-        if (getY() >= getWorld().getHeight()) {
-            Greenfoot.stop(); // Game over if Wukong falls off the screen
-        }
-
+        
         if (getY() <= 0) {
             timeOnTop++;
-            if (timeOnTop > 10) {
-                Greenfoot.stop(); // Game over if Wukong stays on top for more than 3 seconds
+            if (timeOnTop > 1) { 
+                Greenfoot.stop();
             }
         } else {
             timeOnTop = 0;
         }
 
-        // Check if Wukong is at the bottom of the screen after 10 seconds
-        if (timeSinceStart > TIME_LIMIT && getY() >= getWorld().getHeight() - getImage().getHeight()) {
-            Greenfoot.stop(); // Game over if Wukong is at the bottom after 10 seconds
+        
+        if (getY() >= getWorld().getHeight() - getImage().getHeight()) {
+            timeAtBottom++;
+            if (timeAtBottom > 180) { 
+                Greenfoot.stop();
+            }
+        } else {
+            timeAtBottom = 0;
         }
     }
 }
