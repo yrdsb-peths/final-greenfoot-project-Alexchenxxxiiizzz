@@ -13,8 +13,7 @@ public class Wukong extends Actor {
     private final int GRAVITY = 1;
     private final int JUMP_STRENGTH = -10;
     private final int CLOUD_BOUNCE = -5;
-    private int timeOnTop = 0; // This will be used to check if the player is at the top
-    private int timeAtBottom = 0; // This will be used to check if the player is at the bottom too long
+    private int timeAtBottom = 0; 
     private int imageIndex = 0;
     private int animationCounter = 0;
     private boolean isInitialized = false;
@@ -55,10 +54,10 @@ public class Wukong extends Actor {
 
     private void handleHorizontalMovement() {
         if (Greenfoot.isKeyDown("left")) {
-            move(-5);
+            move(-14);
         }
         if (Greenfoot.isKeyDown("right")) {
-            move(5);
+            move(14);
         }
     }
 
@@ -80,17 +79,32 @@ public class Wukong extends Actor {
     }
 
     private void checkForLosingConditions() {
-        if (isAtTop()) {
-            Greenfoot.stop(); // Game over if Wukong is at the top
+        if (isAtTop() || isAtBottomTooLong()) {
+            // Game over if Wukong is at the top or at the bottom for too long
+            Greenfoot.stop();
+            World world = getWorld();
+            String message = "Game Over: " + getGameOverReason();
+            world.addObject(new GameOverMessage(message), world.getWidth() / 2, world.getHeight() / 2);
         }
-        
+    }
+
+    private boolean isAtBottomTooLong() {
         if (isAtBottom()) {
             timeAtBottom++;
-            if (timeAtBottom > 180) { // Assume 60 frames per second, so 180 frames are 3 seconds
-                Greenfoot.stop(); // Game over if Wukong is at the bottom for more than 3 seconds
-            }
+            return timeAtBottom > 60; // Assume 60 frames per second, so 180 frames are 3 seconds
         } else {
             timeAtBottom = 0; // Reset the counter if Wukong is not at the bottom
+            return false;
+        }
+    }
+
+    private String getGameOverReason() {
+        if (isAtTop()) {
+            return "You hit the top!";
+        } else if (isAtBottomTooLong()) {
+            return "You stayed at the bottom too long!";
+        } else {
+            return "Unknown reason";
         }
     }
 
@@ -100,20 +114,6 @@ public class Wukong extends Actor {
 
     public boolean isAtBottom() {
         return getY() >= getWorld().getHeight() - getImage().getHeight();
-    }
-    
-    private int count = 0;
-    public void checkEdge()
-    {
-        if(getWorld().getWidth() == 0 || getWorld().getHeight() == 0)
-        {
-            count++;
-            if(count == 80)
-            {
-                getWorld().removeObject(this);
-                setImage(new GreenfootImage("YouWin！", 120, Color.WHITE, new Color(0, 0, 0, 128)));
-            } 
-        }
     }
 }
 
