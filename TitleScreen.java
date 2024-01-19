@@ -11,7 +11,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class TitleScreen extends World {
 
     public TitleScreen() {    
-        super(700, 400, 1);
+        super(800, 600, 1);
         prepare();
     }
 
@@ -22,7 +22,7 @@ public class TitleScreen extends World {
 
         // Add gameplay instructions
         String instructions = "Move left and right, press space to jump once.\nFalling to the ground or reaching the top both end the game.";
-        GreenfootImage instructionImage = new GreenfootImage(instructions, 24, Color.BLACK, new Color(0, 0, 0, 0));
+        GreenfootImage instructionImage = new GreenfootImage(instructions, 24, Color.GREEN, new Color(0, 0, 0, 0));
         getBackground().drawImage(instructionImage, getWidth() / 2 - instructionImage.getWidth() / 2, getHeight() / 2);
 
         // Add start game prompt
