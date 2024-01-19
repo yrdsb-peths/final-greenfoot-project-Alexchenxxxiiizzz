@@ -12,7 +12,7 @@ public class MyWorld extends World {
     private Wukong wukong;
 
     public MyWorld() {    
-        super(800, 600, 1);  
+        super(900, 600, 1);  
         scoreBoard = new ScoreBoard();
         addObject(scoreBoard, 350, 25);
 
@@ -59,6 +59,7 @@ public class MyWorld extends World {
         return scoreBoard;
     }
 }
+  
 
 
     

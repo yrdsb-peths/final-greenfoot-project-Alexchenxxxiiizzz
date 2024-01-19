@@ -108,10 +108,10 @@ public class Wukong extends Actor {
         if(getWorld().getWidth() == 0 || getWorld().getHeight() == 0)
         {
             count++;
-            if(count == 60)
+            if(count == 80)
             {
                 getWorld().removeObject(this);
-                setImage(new GreenfootImage("Game Over", 80, Color.WHITE, new Color(0, 0, 0, 128)));
+                setImage(new GreenfootImage("YouWin！", 120, Color.WHITE, new Color(0, 0, 0, 128)));
             } 
         }
     }
